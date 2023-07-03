@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
+import CardDB from './cardDB';
 import AddForm from './AddForm';
+import { useDispatch } from 'react-redux';
+const mongoose = require('mongoose');
 
 const CardContainer = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    // Fetch the initial list of cards from the server when the component mounts
-    fetch('http://localhost:3001/cards')
-      .then(response => response.json())
-      .then(data => setItems(data));
-  }, []);
+  const fetchData = async () => {
+    try {
+      const cards = await CardDB.find({});
+      setItems(cards);
+    } catch (error) {
+      console.error('Error fetching cards:', error);
+    }
+  };
+
+  // Call the fetchData function when the component mounts
+  fetchData();
+}, []);
 
   const handleAddItem = (newItem) => {
     // Make an API request to add a new card to the server
@@ -28,19 +38,16 @@ const CardContainer = () => {
       });
   };
 
-  const handleDeleteItem = (itemName) => {
-    // Find the card with the given name
+  const handleDeleteItem = async (itemName) => {
     const cardToDelete = items.find(item => item.name === itemName);
     if (!cardToDelete) return;
 
-    // Make an API request to delete the card from the server
-    fetch(`http://localhost:3001/cards/${cardToDelete.id}`, {
-      method: 'DELETE',
-    })
-      .then(() => {
-        // Update the local state to remove the deleted card
-        setItems(prevItems => prevItems.filter(item => item.name !== itemName));
-      });
+    try {
+      await CardDB.findOneAndRemove({ name: itemName });
+      setItems(prevItems => prevItems.filter(item => item.name !== itemName));
+    } catch (error) {
+      console.error('Error deleting card:', error);
+    }
   };
 
   const handleEditItem = (id, updatedItem) => {
