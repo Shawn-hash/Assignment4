@@ -18,20 +18,20 @@ const CardDB = mongoose.model('cards', cardSchema);
 const CardContainer = () => {
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-  console.log(CardDB);
-  const fetchData = async () => {
-    try {
-      const cards = await CardDB.find({});
-      setItems(cards);
-    } catch (error) {
-      console.error('Error fetching cards:', error);
-    }
-  };
-
-  // Call the fetchData function when the component mounts
-  fetchData();
-}, []);
+//  useEffect(() => {
+//  console.log(CardDB);
+//  const fetchData = async () => {
+//    try {
+//      const cards = await CardDB.find({});
+//      setItems(cards);
+//    } catch (error) {
+//      console.error('Error fetching cards:', error);
+//    }
+//  };
+//
+//  // Call the fetchData function when the component mounts
+//  fetchData();
+//}, []);
 
   const handleAddItem = (newItem) => {
     // Make an API request to add a new card to the server
