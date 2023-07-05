@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const url = 'http://localhost:3001/cards/';
 
-export const fetchPosts = () => axios.get(url);
-export const createPost = (newPost) => axios.post(url, newPost);
-// export const updatePost = (id, updatedPost) => axios.patch(`${url}/${id}`, updatedPost);
-export const deletePost = (id) => axios.delete(`${url}/${id}`)
+export const fetchCards = () => axios.get(url);
+export const createCard = (newCard) => axios.post(url, newCard);
+// export const updateCard = (id, updatedCard) => axios.patch(`${url}/${id}`, updatedCard);
+export const deleteCard = (id) => axios.delete(`${url}/${id}`)

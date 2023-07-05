@@ -12,15 +12,9 @@ const AddForm = ({addItem}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Create a new item object
-    const newItem = {
-      name,
-      description,
-      price,
-      image,
-    };
-    // dispatch(addCardAsync(newItem));
-    console.log("card added");
+    const newItem = { name, description, price, image };
+    dispatch(createCard(newItem));
+
     // Clear the form inputs
     setName('');
     setDescription('');
