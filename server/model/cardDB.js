@@ -8,7 +8,6 @@ const cardSchema = new mongoose.Schema({
    image: String
 });
 
-// Create a Mongoose model based on the schema
 const CardDB = mongoose.model('cards', cardSchema);
 
 module.exports = CardDB;

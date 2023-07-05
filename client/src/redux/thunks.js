@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { actionTypes } from '../actions/actionTypes';
-import { CardDB } from '../components/cardDB.js'
+// import { actionTypes } from '../actions/actionTypes';
 //
 //
 //export const fetchCardsAsync = createAsyncThunk(
@@ -11,16 +10,21 @@ import { CardDB } from '../components/cardDB.js'
 //  }
 //);
 //
-export const addCardAsync = createAsyncThunk('cards/addCard', async (item) => {
-  try {
-    const cardData = JSON.parse(item);
-    const card = new CardDB(cardData);
-    await card.save();
-    return card;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-});
+//export const addCardAsync = createAsyncThunk('cards/addCard', async (item) => {
+//  console.log("reach thunks");
+//  try {
+//    const cardData = JSON.stringify(item);
+//    console.log(cardData);
+//    const card = new CardDB(item);
+//    console.log("card");
+//    await card.save();
+//    console.log("reached");
+//    return card;
+//  } catch (error) {
+//    console.log("thunk error reached" + error);
+//    throw new Error(error.message);
+//  }
+//});
 //
 //
 //

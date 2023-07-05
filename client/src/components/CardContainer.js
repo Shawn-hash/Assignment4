@@ -1,14 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
-import CardDB from './cardDB';
 import AddForm from './AddForm';
 import { useDispatch } from 'react-redux';
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
+// const CardDB = require('./cardDB');
+
+const cardSchema = mongoose.Schema({
+   name: String,
+   description: String,
+   price: String,
+   image: String
+});
+
+const CardDB = mongoose.model('cards', cardSchema);
 
 const CardContainer = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
+  console.log(CardDB);
   const fetchData = async () => {
     try {
       const cards = await CardDB.find({});
@@ -24,6 +35,7 @@ const CardContainer = () => {
 
   const handleAddItem = (newItem) => {
     // Make an API request to add a new card to the server
+    console.log("reach to CardContainer");
     fetch('http://localhost:3001/cards', {
       method: 'POST',
       headers: {

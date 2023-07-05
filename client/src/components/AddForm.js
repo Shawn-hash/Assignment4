@@ -19,7 +19,8 @@ const AddForm = ({addItem}) => {
       price,
       image,
     };
-    dispatch(addCardAsync(newItem));
+    // dispatch(addCardAsync(newItem));
+    console.log("card added");
     // Clear the form inputs
     setName('');
     setDescription('');
