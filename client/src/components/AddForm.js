@@ -8,12 +8,13 @@ const AddForm = ({addItem}) => {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
+  const [company, setCompany] = useState('');
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newItem = { name, description, price, image };
+    const newItem = { name, description, price, company, image };
     dispatch(createCard(newItem));
 
     // Clear the form inputs
@@ -21,6 +22,7 @@ const AddForm = ({addItem}) => {
     setDescription('');
     setPrice('');
     setImage('');
+    setCompany('');
   };
 
   const handleClearForm = () => {
@@ -28,6 +30,7 @@ const AddForm = ({addItem}) => {
     setDescription('');
     setPrice('');
     setImage('');
+    setCompany('');
   };
 
   return (
@@ -62,6 +65,16 @@ const AddForm = ({addItem}) => {
           onChange={(e) => setPrice(e.target.value)}
         />
       </div>
+      <div className="field">
+              <label htmlFor="company">Company Name:</label>
+              <input
+                type="text"
+                id="company"
+                value={image}
+                placeholder="Enter the company name"
+                onChange={(e) => setCompany(e.target.value)}
+              />
+            </div>
       <div className="field">
         <label htmlFor="image">Image URL:</label>
         <input

@@ -9,6 +9,7 @@ const Popup = ({ item, onClose }) => {
       <div className="popup-content">
         <p>{item.description}</p>
         <p>Price: {item.price}</p>
+        <p>Company Name: {item.company}</p>
         <button onClick={handleClose}>Close</button>
       </div>
     </div>

@@ -35,11 +35,11 @@ export const updateCard = (id, card) => async(dispatch) => {
     }
 }
 
-export const deleteCard = (id) => async(dispatch) => {
+export const deleteCard = (name) => async(dispatch) => {
     try{
-        const { data } = await api.deleteCard(id);
+        const { data } = await api.deleteCard(name);
 
-        dispatch({type:'DELETE', payload: id});
+        dispatch({type:'DELETE', payload: name});
         //better to set type as constants!
     } catch(error){
         console.log(error)

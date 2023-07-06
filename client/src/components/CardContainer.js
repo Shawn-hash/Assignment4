@@ -3,63 +3,41 @@ import Card from './Card';
 import AddForm from './AddForm';
 import { useDispatch } from 'react-redux';
 import mongoose from 'mongoose';
-
-// const CardDB = require('./cardDB');
-
-const cardSchema = mongoose.Schema({
-   name: String,
-   description: String,
-   price: String,
-   image: String
-});
-
-const CardDB = mongoose.model('cards', cardSchema);
+import {getCards, createCard, deleteCard, updateCard} from '../actions/actionTypes';
 
 const CardContainer = () => {
+  const dispatch = useDispatch();
   const [items, setItems] = useState([]);
 
-//  useEffect(() => {
-//  console.log(CardDB);
-//  const fetchData = async () => {
-//    try {
-//      const cards = await CardDB.find({});
-//      setItems(cards);
-//    } catch (error) {
-//      console.error('Error fetching cards:', error);
-//    }
-//  };
-//
-//  // Call the fetchData function when the component mounts
-//  fetchData();
-//}, []);
-
-  const handleAddItem = (newItem) => {
-    // Make an API request to add a new card to the server
-    console.log("reach to CardContainer");
-    fetch('http://localhost:3001/cards', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newItem),
-    })
+  const fetchCards = () => {
+    fetch('http://localhost:3001/cards')
       .then(response => response.json())
-      .then(data => {
-        // Update the local state with the new card
-        setItems(prevItems => [...prevItems, data]);
-      });
+      .then(data => setItems(data));
   };
 
-  const handleDeleteItem = async (itemName) => {
+  useEffect(() => {
+    fetchCards();
+  }, []);
+
+
+  const handleAddItem = (newItem) => {
+    dispatch(createCard(newItem)).then(() => {
+      console.log("added to database");
+      setItems(prevItems => [...prevItems, newItem]);
+      console.log("has set");
+    });
+  };
+
+
+  const handleDeleteItem = (itemName) => {
     const cardToDelete = items.find(item => item.name === itemName);
     if (!cardToDelete) return;
 
-    try {
-      await CardDB.findOneAndRemove({ name: itemName });
-      setItems(prevItems => prevItems.filter(item => item.name !== itemName));
-    } catch (error) {
-      console.error('Error deleting card:', error);
-    }
+    // Dispatch the deleteCard action with the id of the card to delete
+    dispatch(deleteCard(cardToDelete.name));
+
+    // Update the items state to remove the deleted card
+    setItems(prevItems => prevItems.filter(item => item.name !== itemName));
   };
 
   const handleEditItem = (id, updatedItem) => {

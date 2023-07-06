@@ -10,7 +10,7 @@ router.get('/', getAllCards);
 
 router.post('/', addCard);
 
-router.delete('/:cardId', deleteCard);
+router.delete('/:name', deleteCard);
 
 // router.put('/:cardId', updateCard); // Extra feature
 
