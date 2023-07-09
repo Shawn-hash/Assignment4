@@ -25,11 +25,10 @@ export const createCard = (card) => async(dispatch) => {
     }
 }
 
-export const updateCard = (id, card) => async(dispatch) => {
+export const updateCard = (name, card) => async(dispatch) => {
     try{
-        const { data } = await api.updateCard(id, card);
+        const { data } = await api.updateCard(card.name, card);
         dispatch({type:'UPDATE', payload: data});
-        //better to set type as constants!
     } catch(error){
         console.log(error)
     }

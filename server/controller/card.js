@@ -36,5 +36,19 @@ const deleteCard = async (req, res, next) => {
     }
 };
 
+const updateCard = async (req,res,next) => {
+  try{
+    const { name: _name } = req.body;
+    const card = req.body;
+    console.log("1");
+    const updatedCard = await CardDB.findOneAndUpdate({ name: _name }, card, {new: true});
+    console.log(updatedCard);
+    res.json(updatedCard);
+    console.log("3");
+  } catch (error) {
+    console.log("4");
+    res.status(404).json({ message: error });
+  }
+};
 
-module.exports = { getAllCards, addCard, deleteCard };
+module.exports = { getAllCards, addCard, deleteCard, updateCard };
